@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-const { useReducer, useRef } = React;
+const { useReducer } = React;
 
 const initialState = {
   additionalPrice: 0,
@@ -44,12 +44,11 @@ const reducer = (state, action) => {
 };
 
 const App = () => {
-  const inputRef = useRef();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const removeFeature = (item) => {
-    dispatch({ type: "REMOVE_ITEM", item });
-  };
+  // const removeFeature = (item) => {
+  //   dispatch({ type: "REMOVE_ITEM", item });
+  // };
 
   const buyItem = (item) => {
     dispatch({ type: "BUY_ITEM", item });
@@ -70,7 +69,8 @@ const App = () => {
               {state.car.features.map((item) => (
                 <li key={item.id}>
                   <button
-                    onClick={() => removeFeature(item)}
+                    // onClick={() => removeFeature(item)}
+                    onClick={() => dispatch({ type: "REMOVE_ITEM", item })}
                     className="button"
                   >
                     X
@@ -92,6 +92,7 @@ const App = () => {
               {state.store.map((item) => (
                 <li key={item.id}>
                   <button onClick={() => buyItem(item)} className="button">
+                  {/* <button onClick={() => dispatch({ type: "BUY_ITEM", item })> */}
                     Add
                   </button>
                   {item.name} (+{item.price})
